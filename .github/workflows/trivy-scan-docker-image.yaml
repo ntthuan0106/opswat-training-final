@@ -14,7 +14,7 @@ permissions:
 jobs:
   trivy-scan:
     runs-on: ubuntu-latest
-
+    environment: trivy scan
     env:
       S3_BUCKET: thuan-opswat-test
       S3_PREFIX: trivy
