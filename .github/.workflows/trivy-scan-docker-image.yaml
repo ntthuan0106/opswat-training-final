@@ -1,0 +1,82 @@
+name: Trivy Scan from image-list.yml
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+
+
+jobs:
+  trivy-scan:
+    runs-on: ubuntu-latest
+
+    env:
+      S3_BUCKET: thuan-opswat-test
+      S3_PREFIX: trivy
+      IMAGE_LIST_FILE: trivy/image-list.yml
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install yq (YAML parser)
+      run: |
+        sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq
+        sudo chmod +x /usr/local/bin/yq
+
+    - name: Prepare output directory
+      run: mkdir -p trivy/report
+
+    - name: Run Trivy scans
+      run: |
+        exit_code=0
+        IMAGES=$(yq '.images[]' $IMAGE_LIST_FILE)
+
+        for IMAGE in $IMAGES; do
+          IMAGE_NAME=$(echo "$IMAGE" | cut -d ':' -f1)
+          IMAGE_TAG=$(echo "$IMAGE" | cut -d ':' -f2)
+          SAFE_NAME=$(echo "$IMAGE_NAME" | sed 's|/|-|g')
+          FILENAME="trivy-${SAFE_NAME}-${IMAGE_TAG}.txt"
+          OUTPUT_PATH="trivy/report/$FILENAME"
+
+          echo "🔍 Scanning $IMAGE ..."
+
+          docker run --rm \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v ${{ github.workspace }}/trivy/report:/result \
+            aquasec/trivy image \
+            --format table \
+            --output /result/$FILENAME \
+            $IMAGE
+
+          CRITICAL_COUNT=$(grep -c 'CRITICAL' "$OUTPUT_PATH" || true)
+          echo "🔴 $IMAGE has $CRITICAL_COUNT CRITICAL vulnerabilities"
+
+          if [ "$CRITICAL_COUNT" -gt 10 ]; then
+            echo "❌ $IMAGE exceeds CRITICAL vulnerability threshold"
+            exit_code=1
+          fi
+        done
+
+        exit $exit_code
+
+    - name: List Trivy output
+      run: ls -lh trivy/report
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v3
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_MINH }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_MINH }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Upload Trivy reports to S3
+      run: |
+        aws s3 cp trivy/report/ s3://$S3_BUCKET/$S3_PREFIX/ --recursive --acl bucket-owner-full-control
+
+    - name: Upload reports to GitHub Artifacts (optional)
+      uses: actions/upload-artifact@v3
+      with:
+        name: trivy-reports
+        path: trivy/report/
