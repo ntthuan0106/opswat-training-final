@@ -80,7 +80,7 @@ jobs:
         aws s3 cp trivy/report/ s3://$S3_BUCKET/$S3_PREFIX/ --recursive --acl bucket-owner-full-control
 
     - name: Upload reports to GitHub Artifacts (optional)
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: trivy-reports
         path: trivy/report/
