@@ -1,0 +1,8 @@
+images:
+- rabbitmq:3.11-management-alpine
+- ntthuan0106job/go-coffeeshop-proxy:latest
+- ntthuan0106job/go-coffeeshop-product:latest
+- ntthuan0106job/go-coffeeshop-counter:latest
+- ntthuan0106job/go-coffeeshop-barista:latest
+- ntthuan0106job/go-coffeeshop-kitchen:latest
+- ntthuan0106job/go-coffeeshop-web:latest
