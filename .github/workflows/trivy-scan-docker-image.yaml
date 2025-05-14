@@ -19,7 +19,6 @@ jobs:
       S3_BUCKET: thuan-opswat-test
       S3_PREFIX: trivy
       IMAGE_LIST_FILE: trivy/image-list.yml
-      AWS_REGION: us-east-1
 
     steps:
     - name: Checkout repository
@@ -74,7 +73,7 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_MINH }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_MINH }}
-        aws-region: ${{ env.AWS_REGION }}
+        aws-region: ${{ vars.AWS_REGION }}
 
     - name: Upload Trivy reports to S3
       run: |
