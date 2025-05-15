@@ -1,0 +1,38 @@
+# product
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product
+  namespace: go-coffeeshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: product
+  template:
+    metadata:
+      labels:
+        app: product
+    spec:
+      containers:
+      - name: product
+        image: ntthuan0106job/go-coffeeshop-product:latest
+        env:
+        - name: APP_NAME
+          value: product-svc
+        ports:
+        - containerPort: 5001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: product
+  namespace: go-coffeeshop
+spec:
+  ports:
+  - name: product-port
+    protocol: TCP
+    port: 5001
+    targetPort: 5001
+  selector:
+    app: product

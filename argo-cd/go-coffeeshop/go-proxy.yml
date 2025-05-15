@@ -1,0 +1,46 @@
+# proxy
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proxy
+  namespace: go-coffeeshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: proxy
+  template:
+    metadata:
+      labels:
+        app: proxy
+    spec:
+      containers:
+      - name: proxy
+        image: ntthuan0106job/go-coffeeshop-proxy:latest
+        env:
+        - name: APP_NAME
+          value: proxy-svc
+        - name: GRPC_PRODUCT_HOST
+          value: product
+        - name: GRPC_PRODUCT_PORT
+          value: "5001"
+        - name: GRPC_COUNTER_HOST
+          value: counter
+        - name: GRPC_COUNTER_PORT
+          value: "5002"
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxy
+  namespace: go-coffeeshop
+spec:
+  ports:
+  - name: proxy-port
+    protocol: TCP
+    port: 5000
+    targetPort: 5000
+  selector:
+    app: proxy

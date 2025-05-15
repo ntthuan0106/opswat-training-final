@@ -1,0 +1,11 @@
+resources:
+- go-barista.yml
+- go-counter.yml
+- go-kitchen.yml
+- go-product.yml
+- go-proxy.yml
+- go-rabbitmq.yml
+- go-web.yml
+
+generators:
+- ../ksops/ksops.yml

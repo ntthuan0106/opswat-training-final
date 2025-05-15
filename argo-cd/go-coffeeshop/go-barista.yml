@@ -1,0 +1,54 @@
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: barista
+  namespace: go-coffeeshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: barista
+  template:
+    metadata:
+      labels:
+        app: barista
+    spec:
+      containers:
+      - name: barista
+        image: ntthuan0106job/go-coffeeshop-barista:latest
+        env:
+        - name: APP_NAME
+          value: kitchen-svc
+        - name: IN_DOCKER
+          value: "true"
+        - name: PG_URL
+          valueFrom:
+            secretKeyRef:
+              name: postgres
+              key: PG_URL
+        - name: PG_DSN_URL
+          valueFrom:
+            secretKeyRef:
+              name: postgres
+              key: PG_DSN_URL
+        - name: RABBITMQ_URL
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq
+              key: RABBITMQ_URL
+---
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: barista
+  namespace: go-coffeeshop
+spec:
+  selector:
+    app: barista
+  ports:
+  - name: barista-port
+    protocol: TCP
+    port: 80
+    targetPort: 80

@@ -1,0 +1,57 @@
+# counter
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: counter
+  namespace: go-coffeeshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: counter
+  template:
+    metadata:
+      labels:
+        app: counter
+    spec:
+      containers:
+      - name: counter
+        image: ntthuan0106job/go-coffeeshop-counter:latest
+        env:
+        - name: APP_NAME
+          value: counter-svc
+        - name: IN_DOCKER
+          value: "true"
+        - name: PG_URL
+          valueFrom:
+            secretKeyRef:
+              name: postgres
+              key: PG_URL
+        - name: PG_DSN_URL
+          valueFrom:
+            secretKeyRef:
+              name: postgres
+              key: PG_DSN_URL
+        - name: RABBITMQ_URL
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq
+              key: RABBITMQ_URL
+        - name: PRODUCT_CLIENT_URL
+          value: product:5001
+        ports:
+        - containerPort: 5002
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: counter
+  namespace: go-coffeeshop
+spec:
+  selector:
+    app: counter
+  ports:
+  - name: counter-port
+    protocol: TCP
+    port: 5002
+    targetPort: 5002
