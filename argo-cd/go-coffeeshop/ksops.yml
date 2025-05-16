@@ -1,0 +1,12 @@
+#./secrets/ksops.yml
+apiVersion: viaduct.ai/v1
+kind: ksops
+metadata:
+  name: ksops-genetator
+  annotations:
+    config.kubernetes.io/function: |
+      exec:
+        path: ksops
+files:
+- ../secrets/encrypted/postgres.encrypted.yml
+- ../secrets/encrypted/rabbitmq.encrypted.yml

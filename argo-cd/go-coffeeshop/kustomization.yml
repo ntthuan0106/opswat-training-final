@@ -1,3 +1,4 @@
+#./go-coffeeshop/kustomization.yml
 resources:
 - go-barista.yml
 - go-counter.yml
@@ -8,4 +9,4 @@ resources:
 - go-web.yml
 
 generators:
-- ../ksops/ksops.yml
+- ./ksops.yml
