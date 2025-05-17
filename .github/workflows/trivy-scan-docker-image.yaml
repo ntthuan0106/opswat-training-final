@@ -53,7 +53,7 @@ jobs:
         echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username "${{ env.DOCKER_USERNAME }}" --password-stdin
 
     - name: Push tagged images to private docker hub repo
-      run: ./scripts/push-image.sh "${{ env.DOCKER_USERNAME }}" "${{ env.DOCKER_HUB_PRIVATE_REPOSITORY_NAME }}"
+      run: ./scripts/push-images.sh "${{ env.DOCKER_USERNAME }}" "${{ env.DOCKER_HUB_PRIVATE_REPOSITORY_NAME }}"
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4
