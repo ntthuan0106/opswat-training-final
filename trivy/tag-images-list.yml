@@ -1,0 +1,14 @@
+images-sources:
+- cuongopswat/go-coffeeshop-proxy
+- cuongopswat/go-coffeeshop-product
+- cuongopswat/go-coffeeshop-counter
+- cuongopswat/go-coffeeshop-barista
+- cuongopswat/go-coffeeshop-kitchen
+- cuongopswat/go-coffeeshop-web
+tag-destination:
+- go-coffeeshop-proxy-latest
+- go-coffeeshop-product-latest
+- go-coffeeshop-counter-latest
+- go-coffeeshop-barista-latest
+- go-coffeeshop-kitchen-latest
+- go-coffeeshop-web-latest
