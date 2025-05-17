@@ -46,9 +46,7 @@ jobs:
     - name: Scan image
       run: ./scripts/scan-images.sh
     - name: Tag images
-      run: ./scripts/tag-images.sh trivy/tag-images-list.yml \
-        "${{ env.DOCKER_USERNAME }}" \
-        "${{ env.DOCKER_HUB_PRIVATE_REPOSITORY_NAME }}"
+      run: ./scripts/tag-images.sh "${{ env.DOCKER_USERNAME }}" "${{ env.DOCKER_HUB_PRIVATE_REPOSITORY_NAME }}"
 
     - name: Docker login
       run: |
