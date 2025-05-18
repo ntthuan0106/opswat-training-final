@@ -23,11 +23,11 @@ spec:
         - name: GRPC_PRODUCT_HOST
           value: product
         - name: GRPC_PRODUCT_PORT
-          value: 5001
+          value: "5001"
         - name: GRPC_COUNTER_HOST
           value: counter
         - name: GRPC_COUNTER_PORT
-          value: 5002
+          value: "5002"
         ports:
         - containerPort: 5000
       imagePullSecrets:
