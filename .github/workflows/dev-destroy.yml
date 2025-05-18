@@ -33,7 +33,7 @@ jobs:
 
       - name: Terraform Destroy
         working-directory: ./terraform/workspaces/dev
-        run: terraform destroy -var-file=values.tfvars -auto-approve
+        run: terraform destroy -auto-approve
         env:
           TF_VAR_DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
           TF_VAR_DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
