@@ -1,0 +1,8 @@
+# Ignore Terraform state and settings
+.terraform/
+**/.terraform/
+**/.terraform/**
+
+# Ignore Terraform lock file
+.terraform.lock.hcl
+values.tfvars
