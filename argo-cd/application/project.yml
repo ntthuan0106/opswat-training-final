@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: opswat-training-final
+  namespace: argocd # Ensure this matches your Argo CD installation namespace
+spec:
+  description: My sample Argo CD project
+
+  sourceRepos:
+  - 'https://github.com/ntthuan0106/opswat-training-final.git'
+
+  destinations:
+  - namespace: go-coffeeshop
+    server: https://kubernetes.default.svc
+  - namespace: argocd
+    server: https://kubernetes.default.svc
+
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+
+  roles:
+  - name: read-only
+    description: Read-only access to applications in this project
+    policies:
+    - p, proj:opswat-training-final:read-only, applications, get, opswat-training-final/*, allow
+    groups:
+    - my-group
