@@ -19,9 +19,7 @@ jobs:
       run:
         working-directory: terraform/workspaces/dev
     environment: dev-env
-    env: 
-        DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
-
+    
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -47,6 +45,6 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve
         working-directory: ./terraform/workspaces/dev
-        env:
-          TF_VAR_DOCKER_USERNAME: ${{ env.DOCKER_USERNAME }}
+        env: 
+          TF_VAR_DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
           TF_VAR_DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
