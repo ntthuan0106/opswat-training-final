@@ -10,7 +10,7 @@ on:
         - './argo-cd/**'
 
   workflow_dispatch:
-    
+
   workflow_run:
       workflows: ["Trivy Scan from image-list.yml"]
       types:
@@ -47,16 +47,33 @@ jobs:
           TF_VAR_DB_USERNAME: ${{ vars.DB_USERNAME }}
           TF_VAR_DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
-  # ArgoCD-intergrate:
-  #   runs-on: ubuntu-latest
-  #   environment: prod-env
-  #   steps:
-  #     - name: Checkout Code
-  #       uses: actions/checkout@v4
+  ArgoCD-intergrate:
+    runs-on: ubuntu-latest
+    environment: prod-env
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-  #     - name: Configure AWS credentials
-  #       uses: aws-actions/configure-aws-credentials@v4
-  #       with:
-  #           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  #           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  #           aws-region: ${{ vars.AWS_REGION }}
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'latest'
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: ${{ vars.AWS_REGION }}
+      
+      - name: Update kubeconfig for EKS
+        run: |
+          aws eks update-kubeconfig --name "${{ vars.ARGO_CD_CLUSTER_NAME }}"
+
+      - name: Apply application
+        working-directory: argo-cd
+        run: |
+          kubectl apply -f ./application/repo.yml
+          kubectl apply -f ./application/project.yml
+          kubectl apply -f ./application/app-secret.yml
+          kubectl apply -f ./application/application.yml
