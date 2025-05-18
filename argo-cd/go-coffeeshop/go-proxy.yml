@@ -21,25 +21,13 @@ spec:
         - name: APP_NAME
           value: proxy-svc
         - name: GRPC_PRODUCT_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: coffeeshop-config
-              key: GRPC_PRODUCT_HOST
+          value: product
         - name: GRPC_PRODUCT_PORT
-          valueFrom:
-            configMapKeyRef:
-              name: coffeeshop-config
-              key: GRPC_PRODUCT_PORT
+          value: 5001
         - name: GRPC_COUNTER_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: coffeeshop-config
-              key: GRPC_COUNTER_HOST
+          value: counter
         - name: GRPC_COUNTER_PORT
-          valueFrom:
-            configMapKeyRef:
-              name: coffeeshop-config
-              key: GRPC_COUNTER_PORT
+          value: 5002
         ports:
         - containerPort: 5000
       imagePullSecrets:

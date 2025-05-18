@@ -1,6 +1,5 @@
 #./go-coffeeshop/kustomization.yml
 resources:
-- ConfigMap.yml
 - go-barista.yml
 - go-counter.yml
 - go-kitchen.yml
