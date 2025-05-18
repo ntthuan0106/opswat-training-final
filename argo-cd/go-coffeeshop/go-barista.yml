@@ -37,6 +37,8 @@ spec:
             secretKeyRef:
               name: rabbitmq
               key: RABBITMQ_URL
+      imagePullSecrets:
+      - name: private-registry-secret
 ---
 # Service
 apiVersion: v1

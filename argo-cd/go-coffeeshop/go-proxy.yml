@@ -42,6 +42,8 @@ spec:
               key: GRPC_COUNTER_PORT
         ports:
         - containerPort: 5000
+      imagePullSecrets:
+      - name: private-registry-secret
 ---
 apiVersion: v1
 kind: Service

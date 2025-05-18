@@ -24,6 +24,8 @@ spec:
           value: "8888"
         ports:
         - containerPort: 8888
+      imagePullSecrets:
+      - name: private-registry-secret
 ---
 apiVersion: v1
 kind: Service

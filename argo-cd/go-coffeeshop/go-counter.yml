@@ -41,6 +41,8 @@ spec:
           value: product:5001
         ports:
         - containerPort: 5002
+      imagePullSecrets:
+      - name: private-registry-secret
 ---
 apiVersion: v1
 kind: Service
