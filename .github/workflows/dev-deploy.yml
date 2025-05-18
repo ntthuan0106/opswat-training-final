@@ -7,6 +7,7 @@ on:
       paths:
         - '.github/workflows/dev-deploy.yml'
         - './terraform/workspaces/dev/**'
+        - './docker/**'
   workflow_run:
       workflows: ["Trivy Scan from image-list.yml"]
       types:
@@ -19,7 +20,7 @@ jobs:
       run:
         working-directory: terraform/workspaces/dev
     environment: dev-env
-    
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
