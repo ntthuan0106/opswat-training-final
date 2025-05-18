@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: product
-        image: ntthuan0106job/go-coffeeshop-product:latest
+        image: ntthuan0106job/thuan-opswat-training:go-coffeeshop-product-latest
         env:
         - name: APP_NAME
           value: product-svc

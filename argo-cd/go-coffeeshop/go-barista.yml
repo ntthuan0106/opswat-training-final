@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: barista
-        image: ntthuan0106job/go-coffeeshop-barista:latest
+        image: ntthuan0106job/thuan-opswat-training:go-coffeeshop-barista-latest
         env:
         - name: APP_NAME
           value: kitchen-svc

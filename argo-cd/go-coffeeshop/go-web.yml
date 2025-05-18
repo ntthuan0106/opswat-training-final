@@ -16,10 +16,10 @@ spec:
     spec:
       containers:
       - name: web
-        image: ntthuan0106job/go-coffeeshop-web:latest
+        image: thuan-opswat-training:go-coffeeshop-web-latest
         env:
         - name: REVERSE_PROXY_URL
-          value: http://proxy:5000
+          value: http:/proxy.go-coffeeshop.svc.cluster.local:5000
         - name: WEB_PORT
           value: "8888"
         ports:

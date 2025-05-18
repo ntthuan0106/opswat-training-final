@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: counter
-        image: ntthuan0106job/go-coffeeshop-counter:latest
+        image: ntthuan0106job/thuan-opswat-training:go-coffeeshop-counter-latest
         env:
         - name: APP_NAME
           value: counter-svc

@@ -16,18 +16,30 @@ spec:
     spec:
       containers:
       - name: proxy
-        image: ntthuan0106job/go-coffeeshop-proxy:latest
+        image: ntthuan0106job/thuan-opswat-training:go-coffeeshop-proxy-latest
         env:
         - name: APP_NAME
           value: proxy-svc
         - name: GRPC_PRODUCT_HOST
-          value: product
+          valueFrom:
+            configMapKeyRef:
+              name: coffeeshop-config
+              key: GRPC_PRODUCT_HOST
         - name: GRPC_PRODUCT_PORT
-          value: "5001"
+          valueFrom:
+            configMapKeyRef:
+              name: coffeeshop-config
+              key: GRPC_PRODUCT_PORT
         - name: GRPC_COUNTER_HOST
-          value: counter
+          valueFrom:
+            configMapKeyRef:
+              name: coffeeshop-config
+              key: GRPC_COUNTER_HOST
         - name: GRPC_COUNTER_PORT
-          value: "5002"
+          valueFrom:
+            configMapKeyRef:
+              name: coffeeshop-config
+              key: GRPC_COUNTER_PORT
         ports:
         - containerPort: 5000
 ---
