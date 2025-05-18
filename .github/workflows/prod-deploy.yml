@@ -8,6 +8,9 @@ on:
         - '.github/workflows/prod-deploy'
         - './terraform/workspaces/prod/**'
         - './argo-cd/**'
+
+  workflow_dispatch:
+    
   workflow_run:
       workflows: ["Trivy Scan from image-list.yml"]
       types:
