@@ -40,11 +40,11 @@ variable "kms_key_alias" {
 variable "secret_name" {
   type = string
 }
-variable "db_username" {
+variable "DB_USERNAME" {
   type = string
   sensitive = true
 }
-variable "db_password" {
+variable "DB_PASSWORD" {
   type = string
   sensitive = true
 }
