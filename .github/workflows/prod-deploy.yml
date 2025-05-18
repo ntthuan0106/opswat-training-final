@@ -1,0 +1,59 @@
+name: Dev Deploy
+
+on:
+  push:
+      branches:
+      - main
+      paths:
+        - '.github/workflows/prod-deploy'
+        - './terraform/workspaces/prod/**'
+        - './argo-cd/**'
+  workflow_run:
+      workflows: ["Trivy Scan from image-list.yml"]
+      types:
+      - completed
+
+jobs:
+  build-prod-infra:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform/workspaces/prod
+    environment: prod-env
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Terraform init
+        run: terraform init --upgrade
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        env: 
+          TF_VAR_DB_USERNAME: ${{ vars.DB_USERNAME }}
+          TF_VAR_DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+
+  # ArgoCD-intergrate:
+  #   runs-on: ubuntu-latest
+  #   environment: prod-env
+  #   steps:
+  #     - name: Checkout Code
+  #       uses: actions/checkout@v4
+
+  #     - name: Configure AWS credentials
+  #       uses: aws-actions/configure-aws-credentials@v4
+  #       with:
+  #           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #           aws-region: ${{ vars.AWS_REGION }}
