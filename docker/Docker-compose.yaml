@@ -29,7 +29,7 @@ services:
       - coffeeshop-network
   
   proxy:
-    image: ntthuan0106job/go-coffeeshop-proxy:latest
+    image: ntthuan0106job/thuan-opswat-training:go-coffeeshop-proxy-latest
     environment:
       APP_NAME: 'proxy-svc'
       GRPC_PRODUCT_HOST: 'product'
@@ -45,7 +45,7 @@ services:
       - coffeeshop-network
 
   product:
-    image: ntthuan0106job/go-coffeeshop-product:latest
+    image: ntthuan0106job/thuan-opswat-training:go-coffeeshop-product-latest
     environment:
       APP_NAME: 'product-svc'
     ports:
@@ -54,7 +54,7 @@ services:
       - coffeeshop-network
 
   counter:
-    image: ntthuan0106job/go-coffeeshop-counter:latest
+    image: ntthuan0106job/thuan-opswat-training:go-coffeeshop-counter-latest
     environment:
       APP_NAME: 'counter-svc'
       IN_DOCKER: "true"
@@ -73,7 +73,7 @@ services:
       - coffeeshop-network
 
   barista:
-    image: ntthuan0106job/go-coffeeshop-barista:latest
+    image: ntthuan0106job/thuan-opswat-training:go-coffeeshop-barista-latest
     environment:
       APP_NAME: 'barista-svc'
       IN_DOCKER: "true"
@@ -89,7 +89,7 @@ services:
       - coffeeshop-network
 
   kitchen:
-    image: ntthuan0106job/go-coffeeshop-kitchen:latest
+    image: ntthuan0106job/thuan-opswat-training:go-coffeeshop-kitchen-latest
     environment:
       APP_NAME: 'kitchen-svc'
       IN_DOCKER: "true"
@@ -105,7 +105,7 @@ services:
       - coffeeshop-network
 
   web:
-    image: ntthuan0106job/go-coffeeshop-web:latest
+    image: ntthuan0106job/thuan-opswat-training:go-coffeeshop-web-latest
     environment:
       REVERSE_PROXY_URL: http://localhost:5000
       WEB_PORT: 8888
