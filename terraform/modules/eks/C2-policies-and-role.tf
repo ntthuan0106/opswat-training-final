@@ -67,9 +67,11 @@ resource "aws_iam_policy" "argocd_kms_policy" {
       {
         Effect   = "Allow",
         Action   = [
-          "kms:Decrypt",
+          "kms:ReEncrypt",
+          "kms:GenerateDataKey",
           "kms:Encrypt",
-          "kms:GenerateDataKey"
+          "kms:Decrypt",
+          "kms:DescribeKey"
         ],
         Resource = "arn:aws:kms:us-east-1:026090549419:key/93462361-1983-4556-bd08-7503d9060388"
       }

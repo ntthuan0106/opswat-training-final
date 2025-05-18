@@ -26,6 +26,25 @@ repoServer:
     name: custom-tools
     subPath: ksops
 
+  serviceAccount:
+    create: true
+    name: "argocd-repo-server"
+    annotation:
+      eks.amazonaws.com/role-arn: arn:aws:iam::026090549419:role/argocd-kms-role
+    labels: {}
+    automountServiceAccountToken: true
+
+  env:
+  - name: AWS_ACCESS_KEY_ID
+    valueFrom:
+      secretKeyRef:
+        name: aws-argocd-secret
+        key: AWS_ACCESS_KEY_ID
+  - name: AWS_SECRET_ACCESS_KEY
+    valueFrom:
+      secretKeyRef:
+        name: aws-argocd-secret
+        key: AWS_SECRET_ACCESS_KEY
 server:
   service:
     type: LoadBalancer

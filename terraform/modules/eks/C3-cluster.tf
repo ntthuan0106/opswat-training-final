@@ -13,6 +13,10 @@ resource "aws_eks_cluster" "cluster" {
     Name = var.vpc_eks_name
     env = var.tag_env
   }
+  depends_on = [ aws_subnet.subnet_pub,
+    aws_iam_role.cluster_role,
+    aws_internet_gateway.public_interner_gateway
+  ]
 }
 
 resource "aws_eks_node_group" "EKS_node_group" {
@@ -37,6 +41,9 @@ resource "aws_eks_node_group" "EKS_node_group" {
     Name = "${var.cluster_name}-node"
     env = var.tag_env
   }
+  depends_on = [ aws_eks_cluster.cluster,
+    aws_iam_role.node_group_role,
+  ]
 }
 
 resource "aws_eks_addon" "eks_addon" {
@@ -47,4 +54,5 @@ resource "aws_eks_addon" "eks_addon" {
   addon_version = each.value.version
   resolve_conflicts_on_create = "OVERWRITE"
   resolve_conflicts_on_update = "OVERWRITE"
+  depends_on = [ aws_eks_cluster.cluster ]
 }
