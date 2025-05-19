@@ -14,9 +14,7 @@ module "eks" {
     { name = "vpc-cni", version = "v1.19.3-eksbuild.1" },
     { name = "coredns", version = "v1.11.4-eksbuild.2" },
     { name = "kube-proxy", version = "v1.32.0-eksbuild.2"  },
-    { name = "metrics-server", version = "v0.7.2-eksbuild.2" },
-    { name = "amazon-cloudwatch-observability", version = "v4.0.0-eksbuild.1"},
-  ]
+    { name = "metrics-server", version = "v0.7.2-eksbuild.2" },  ]
   AWS_ACCESS_KEY_ID = var.AWS_ACCESS_KEY_ID
   AWS_SECRET_ACCESS_KEY = var.AWS_SECRET_ACCESS_KEY
   
