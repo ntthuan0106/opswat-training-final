@@ -1,7 +1,5 @@
 # Argo CD
 
-## Get ArgoCD admin password
-
 ## Create Docker imagePullSecret
 
 ```bash
