@@ -1,6 +1,6 @@
 module "dev_instance" {
   source = "../../modules/docker-instance"
-  instance_name = "docker"
+  instance_name = "docker-1"
   vpc_name = "dev"
   region = "us-east-1"
   key_pair_name = "thuan-dev"
