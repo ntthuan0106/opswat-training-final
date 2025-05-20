@@ -19,7 +19,7 @@ spec:
         image: ntthuan0106job/thuan-opswat-training:go-coffeeshop-web-latest
         env:
         - name: REVERSE_PROXY_URL
-          value: http://localhost:5000
+          value: http://proxy:5000
         - name: WEB_PORT
           value: "8888"
         ports:
