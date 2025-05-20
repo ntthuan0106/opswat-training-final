@@ -1,0 +1,3 @@
+datasource: Prometheus
+cluster: "label_values(up{job=\"kube-state-metrics\"}, cluster)"
+node: label_values(kube_node_info{cluster=\"$cluster\"}, node)

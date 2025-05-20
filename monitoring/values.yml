@@ -1,0 +1,8 @@
+grafana:
+  enable: true
+
+  adminUser: thuan
+  adminPassword: thuan
+
+  service:
+    type: LoadBalancer

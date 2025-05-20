@@ -1,0 +1,1 @@
+count(kube_node_info)
