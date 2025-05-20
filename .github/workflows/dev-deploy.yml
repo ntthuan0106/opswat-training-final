@@ -7,7 +7,7 @@ on:
       paths:
         - '.github/workflows/dev-deploy.yml'
         - './terraform/workspaces/dev/**'
-        - './docker/**'
+        - './docker/Docker-compose.yaml'
   workflow_run:
       workflows: ["Trivy Scan from image-list.yml"]
       types:
@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: terraform/workspaces/dev
+        working-directory: terraform/workspaces/dev/.
     environment: dev-env
 
     steps:
@@ -36,7 +36,7 @@ jobs:
             aws-region: ${{ vars.AWS_REGION }}
 
       - name: Terraform init
-        run: terraform init
+        run: terraform init --upgrade
         working-directory: ./terraform/workspaces/dev
         env:
           # Nếu bạn dùng secret cho cloud provider (AWS, GCP, v.v.)
