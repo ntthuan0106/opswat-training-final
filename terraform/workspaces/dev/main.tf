@@ -6,7 +6,7 @@ module "dev_instance" {
   key_pair_name = "thuan-dev"
   private_key_file_name = "openssh_private_key"
   instance_type = "t3.medium"
-  s3_bucket_name = "thuan-opswat-test"
+  s3_bucket_name = "thuan-devops-training"
   DOCKER_USERNAME = var.DOCKER_USERNAME
   DOCKER_PASSWORD = var.DOCKER_PASSWORD
   env = "dev"
