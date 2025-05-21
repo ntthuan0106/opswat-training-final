@@ -107,7 +107,7 @@ services:
   web:
     image: ntthuan0106job/thuan-opswat-training:go-coffeeshop-web-latest
     environment:
-      REVERSE_PROXY_URL: http://localhost:5000
+      REVERSE_PROXY_URL: http://proxy:5000
       WEB_PORT: 8888
     ports:
       - 8888:8888
