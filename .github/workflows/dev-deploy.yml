@@ -1,17 +1,18 @@
 name: Dev Deploy
 
 on:
+  workflow_dispatch:
   push:
-      branches:
-      - main
-      paths:
-        - '.github/workflows/dev-deploy.yml'
-        - './terraform/workspaces/dev/**'
-        - './docker/Docker-compose.yaml'
+    branches:
+    - main
+    paths:
+    - '.github/workflows/dev-deploy.yml'
+    - './terraform/workspaces/dev/**'
+    - './docker/Docker-compose.yaml'
   workflow_run:
-      workflows: ["Trivy Scan from image-list.yml"]
-      types:
-      - completed
+    workflows: [ "Trivy Scan from image-list.yml" ]
+    types:
+    - completed
 
 jobs:
   deploy:
@@ -22,30 +23,30 @@ jobs:
     environment: dev-env
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-        
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+    - name: Checkout Code
+      uses: actions/checkout@v4
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            aws-region: ${{ vars.AWS_REGION }}
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
 
-      - name: Terraform init
-        run: terraform init --upgrade
-        working-directory: ./terraform/workspaces/dev
-        env:
-          # Nếu bạn dùng secret cho cloud provider (AWS, GCP, v.v.)
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ vars.AWS_REGION }}
 
-      - name: Terraform Apply
-        run: terraform apply -auto-approve
-        working-directory: ./terraform/workspaces/dev
-        env: 
-          TF_VAR_DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
-          TF_VAR_DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Terraform init
+      run: terraform init --upgrade
+      working-directory: ./terraform/workspaces/dev
+      env:
+        # Nếu bạn dùng secret cho cloud provider (AWS, GCP, v.v.)
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
+      working-directory: ./terraform/workspaces/dev
+      env:
+        TF_VAR_DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
+        TF_VAR_DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
