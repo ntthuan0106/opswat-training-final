@@ -8,7 +8,7 @@ resource "null_resource" "deploy_docker_compose" {
   }
 
   provisioner "file" {
-    source      = "${path.cwd}/../../../docker/Docker-compose.yaml"
+    source      = var.docker_compose_file_path
     destination = "/home/ec2-user/Docker-compose.yaml"
   }
 
