@@ -5,3 +5,6 @@ variable "DOCKER_PASSWORD" {
   type      = string
   sensitive = true
 }
+variable "identifier_user" {
+  type = string
+}
