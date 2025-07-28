@@ -52,6 +52,11 @@ variable "DOCKER_PASSWORD" {
   type = string
   sensitive = true
 }
+# Instance environment variables
+variable "EC2_INSTANCE_PUBLIC_IP" {
+  type = string
+  sensitive = true
+}
 # S3 Bucket
 variable "s3_bucket_name" {
   type = string
@@ -59,5 +64,9 @@ variable "s3_bucket_name" {
 
 # Tags
 variable "env" {
+  type = string
+}
+
+variable "docker_compoes_file_path" {
   type = string
 }
