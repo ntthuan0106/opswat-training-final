@@ -53,6 +53,12 @@ variable "DOCKER_PASSWORD" {
   sensitive = true
 }
 # Instance environment variables
+variable "PG_URL" {
+  type = string
+}
+variable "PG_DSN_URL" {
+  type = string
+}
 # S3 Bucket
 variable "s3_bucket_name" {
   type = string
