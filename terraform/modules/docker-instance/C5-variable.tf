@@ -53,10 +53,6 @@ variable "DOCKER_PASSWORD" {
   sensitive = true
 }
 # Instance environment variables
-variable "EC2_INSTANCE_PUBLIC_IP" {
-  type = string
-  sensitive = true
-}
 # S3 Bucket
 variable "s3_bucket_name" {
   type = string
