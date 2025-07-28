@@ -29,7 +29,7 @@ variable "map_public_ip_on_launch" {
 }
 variable "subnet_az" {
   type = string
-  default = "us-east-1a"
+  default = "ap-southeast-1a"
 }
 
 # Instance
@@ -38,7 +38,6 @@ variable "instance_name" {
 }
 variable "ami_id" {
   type = string
-  default = "ami-0953476d60561c955"
 }
 variable "instance_type" {
   type = string
