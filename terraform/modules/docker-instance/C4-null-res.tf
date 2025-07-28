@@ -8,7 +8,7 @@ resource "null_resource" "deploy_docker_compose" {
   }
 
   provisioner "file" {
-    source      = "${path.cwd}/../../../docker/Docker-compose.yaml"
+    source      = var.docker_compoes_file_path
     destination = "/home/ec2-user/Docker-compose.yaml"
   }
 
@@ -17,6 +17,7 @@ resource "null_resource" "deploy_docker_compose" {
       "cd /home/ec2-user",
       "export DOCKER_USERNAME=${var.DOCKER_USERNAME}",
       "export DOCKER_PASSWORD=${var.DOCKER_PASSWORD}",
+      "export EC2_INSTANCE_PUBLIC_IP=${var.EC2_INSTANCE_PUBLIC_IP}",
       "sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD",
       "sudo docker compose -f './Docker-compose.yaml' up -d --build"
     ]
