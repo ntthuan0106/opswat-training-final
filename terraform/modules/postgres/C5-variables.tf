@@ -32,19 +32,10 @@ variable "env" {
 }
 
 # Secrets
-variable "kms_key_alias" {
-  type = string
-  sensitive = true
-}
-
 variable "secret_name" {
   type = string
 }
 variable "DB_USERNAME" {
-  type = string
-  sensitive = true
-}
-variable "DB_PASSWORD" {
   type = string
   sensitive = true
 }
@@ -76,3 +67,11 @@ variable "parameter_group_name" {
   type = string
 }
 
+# KMS
+variable "kms_key_alias" {
+  type = string
+}
+
+variable "identifier_user" {
+  type = string
+}
