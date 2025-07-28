@@ -1,13 +1,10 @@
 resource "aws_db_instance" "default" {
 
   identifier = var.identifier
-
-  username = var.DB_USERNAME
-  password = var.DB_PASSWORD
   
-  parameter_group_name = aws_db_parameter_group.db_parameter_group.name
   db_name = var.db_name
-
+  parameter_group_name = aws_db_parameter_group.db_parameter_group.name
+  
   engine            = var.engine
   engine_version    = var.engine_version
   instance_class    = var.instance_class
