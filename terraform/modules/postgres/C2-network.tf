@@ -17,11 +17,11 @@ resource "aws_subnet" "db_subnet_pub" {
   availability_zone = local.azs[count.index]
   map_public_ip_on_launch = true
 
-  tags = {
-    Name     = "subnet-pub-${count.index}-${local.azs[count.index]}"
-    vpc-name = var.vpc_name
-    env      = var.env
-  }
+  # tags = {
+  #   Name     = "subnet-pub-${count.index}-${local.azs[count.index]}"
+  #   vpc-name = var.vpc_name
+  #   env      = var.env
+  # }
 }
 
 resource "aws_route_table" "route_table_pub" {
