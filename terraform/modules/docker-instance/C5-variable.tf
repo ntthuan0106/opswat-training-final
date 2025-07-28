@@ -61,3 +61,7 @@ variable "s3_bucket_name" {
 variable "env" {
   type = string
 }
+
+variable "docker_compose_file_path" {
+  type = string
+}
