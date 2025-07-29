@@ -20,13 +20,11 @@ module "dev_instance" {
   region = "us-east-1"
   key_pair_name = "thuan-dev"
   private_key_file_name = "openssh_private_key"
+  ami_id = "ami-015927f8ee1bc0293"
   instance_type = "t3.medium"
-  s3_bucket_name = "thuan-devops-training"
+  s3_bucket_name = "thuan-nguyen"
   DOCKER_USERNAME = var.DOCKER_USERNAME
   DOCKER_PASSWORD = var.DOCKER_PASSWORD
-  PG_URL = module.postgresql.PG_URL
-  PG_DSN_URL = module.postgresql.PG_DSN_URL
-  docker_compoes_file_path = "${path.cwd}/../../../docker/Docker-compose.yaml"
   env = "dev"
 }
 

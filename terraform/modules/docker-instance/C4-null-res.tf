@@ -8,13 +8,18 @@ resource "null_resource" "deploy_docker_compose" {
   }
 
   provisioner "file" {
+<<<<<<< HEAD
     source      = var.docker_compoes_file_path
+=======
+    source      = var.docker_compose_file_path
+>>>>>>> test
     destination = "/home/ec2-user/Docker-compose.yaml"
   }
 
   provisioner "remote-exec" {
     inline = [
       "cd /home/ec2-user",
+      "echo 'INSTANCE_PUBLIC_IP=${aws_instance.ec2_instance.public_ip}' > /home/ec2-user/.env",
       "export DOCKER_USERNAME=${var.DOCKER_USERNAME}",
       "export DOCKER_PASSWORD=${var.DOCKER_PASSWORD}",
       "export EC2_INSTANCE_PUBLIC_IP=${aws_instance.ec2_instance.public_ip}",

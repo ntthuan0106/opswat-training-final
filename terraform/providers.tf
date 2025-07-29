@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
-    bucket = "thuan-devops-training"
-    region = "us-east-1"
+    bucket = "thuan-nguyen"
+    region = "ap-southeast-1"
     encrypt = true
     key = "tf/terraform.tfstate"
   }
