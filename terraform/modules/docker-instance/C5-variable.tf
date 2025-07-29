@@ -62,5 +62,4 @@ variable "env" {
 }
 
 variable "docker_compose_file_path" {
-  type = string
 }
