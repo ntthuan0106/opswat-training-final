@@ -18,7 +18,6 @@ resource "null_resource" "deploy_docker_compose" {
       "echo 'INSTANCE_PUBLIC_IP=${aws_instance.ec2_instance.public_ip}' > /home/ec2-user/.env",
       "export DOCKER_USERNAME=${var.DOCKER_USERNAME}",
       "export DOCKER_PASSWORD=${var.DOCKER_PASSWORD}",
-      "export EC2_INSTANCE_PUBLIC_IP=${aws_instance.ec2_instance.public_ip}",
       "sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD",
       "sudo docker compose -f './Docker-compose.yaml' up -d --build"
     ]
