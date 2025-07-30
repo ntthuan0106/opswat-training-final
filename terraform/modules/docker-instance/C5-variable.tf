@@ -52,12 +52,6 @@ variable "DOCKER_PASSWORD" {
   sensitive = true
 }
 # Instance environment variables
-variable "PG_URL" {
-  type = string
-}
-variable "PG_DSN_URL" {
-  type = string
-}
 # S3 Bucket
 variable "s3_bucket_name" {
   type = string
@@ -68,10 +62,6 @@ variable "env" {
   type = string
 }
 
-<<<<<<< HEAD
-variable "docker_compoes_file_path" {
-  type = string
-=======
 variable "docker_compose_file_path" {
->>>>>>> test
+  type = string
 }
