@@ -13,5 +13,3 @@ module "dev_instance" {
   docker_compose_file_path = "${path.module}/../../../docker/Docker-compose.yaml"
   env = "dev"
 }
-
-
