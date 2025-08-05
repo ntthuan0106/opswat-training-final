@@ -5,7 +5,10 @@ data "aws_iam_policy_document" "kms_key_policy" {
 
     principals {
       type        = "AWS"
-      identifiers = ["${var.identifier_user}"]
+      identifiers = [
+        "${var.identifier_user}",
+        "arn:aws:account::412381745515:root"
+      ]
     }
 
     actions = [
@@ -43,6 +46,10 @@ resource "random_string" "random" {
 
 resource "aws_kms_key" "kms_key" {
   description = "Postgres RDS key"
+}
+resource "aws_kms_alias" "kms_alias" {
+  target_key_id = aws_kms_key.kms_key.id
+  name = "alias/${var.kms_key_alias}"
 }
 resource "aws_kms_key_policy" "secrets_kms_policy" {
   key_id = aws_kms_key.kms_key.id
