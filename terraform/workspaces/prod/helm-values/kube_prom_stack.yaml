@@ -1,0 +1,31 @@
+prometheus:
+  prometheusSpec:
+    podMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+
+grafana:
+  adminUser: "admin"
+  adminPassword: "adminthuan"
+
+  ingress:
+    enabled: true
+    name: grafana
+    controller: aws
+    ingressClassName: alb
+    annotations:
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/backend-protocol: HTTP
+      # alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+      alb.ingress.kubernetes.io/load-balancer-name: 'grafana'
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}, {"HTTPS":443}]'
+      alb.ingress.kubernetes.io/ssl-redirect: '443'
+      alb.ingress.kubernetes.io/ip-address-type: ipv4
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    tls:
+    - hosts:
+      - grafana.thuan-nguyen-opswat.click
+      secretName: alb-certificate-secret
+
+alertmanagers:
+  enable: false

@@ -1,0 +1,10 @@
+service:
+  serviceMonitor:
+    create: true
+dashboards:
+  # Labels to add to all dashboard ConfigMaps
+  additionalLabels:
+    grafana_dashboard: "1"
+  certManagerDashboard:
+    create: true
+  namespace: prometheus

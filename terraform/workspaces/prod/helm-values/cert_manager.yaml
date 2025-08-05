@@ -1,0 +1,24 @@
+prometheus:
+  enable: true
+
+  servicemonitor:
+    enabled: true
+    interval: 30s
+    scrapeTimeout: 10s
+    namespace: cert-manager
+    targetPort: http-metrics
+    path: /metrics
+    endpointAdditionalProperties:
+      scheme: https
+      tlsConfig:
+        insecureSkipVerify: true
+
+config:
+  apiVersion: controller.config.cert-manager.io/v1alpha1
+  kind: ControllerConfiguration
+  metricsTLSConfig:
+    dynamic:
+      secretNamespace: "cert-manager"
+      secretName: "aws-load-balancer-tls"
+      dnsNames:
+      - grafana.thuan-nguyen-opswat.click
